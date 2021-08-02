@@ -351,7 +351,9 @@ public class ForeController {
     @RequestMapping("forereview")
     public String review( Model model,int oid) {
         Order o = orderService.get(oid);
+        //为所有的订单填充属于它的订单项
         orderItemService.fill(o);
+        //这里取出第一个产品是为了在前端显示第一张产品的图片
         Product p = o.getOrderItems().get(0).getProduct();
         List<Review> reviews = reviewService.list(p.getId());
         productService.setSaleAndReviewNumber(p);
@@ -368,6 +370,7 @@ public class ForeController {
         orderService.update(o);
 
         Product p = productService.get(pid);
+        //content为评论内容 以字符串形式存储
         content = HtmlUtils.htmlEscape(content);
 
         User user =(User)  session.getAttribute("user");

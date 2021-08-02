@@ -20,5 +20,6 @@ public interface OrderService {
     void update(Order c);
     Order get(int id);
     List list();
+    //此方法主要用语搜索除delete之外的所有订单
     List list(int uid, String excludedStatus);
 }
